@@ -1,0 +1,6 @@
+.mainlay{
+    color: pink;
+    background-color: aqua; display: block;
+    height: 100vh;width: 25vw; position: relative;
+    border-right:red   solid 1  0px;
+}

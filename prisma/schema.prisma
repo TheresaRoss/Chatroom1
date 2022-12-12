@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model chatroom {
+  id                          Int  @id @default(autoincrement())
+  user1Id                     Int
+  user2ID                     Int
+  user_chatroom_user1IdTouser user @relation("chatroom_user1IdTouser", fields: [user1Id], references: [id], map: "Chatroom_user1Id_fkey")
+  user_chatroom_user2IDTouser user @relation("chatroom_user2IDTouser", fields: [user2ID], references: [id], map: "Chatroom_user2ID_fkey")
+
+  @@index([user1Id], map: "Chatroom_user1Id_fkey")
+  @@index([user2ID], map: "Chatroom_user2ID_fkey")
+}
+
+model user {
+  id                              Int        @id @default(autoincrement())
+  name                            String     @db.VarChar(150)
+  username                        String     @unique(map: "User_username_key") @db.VarChar(100)
+  password                        String
+  chatroom_chatroom_user1IdTouser chatroom[] @relation("chatroom_user1IdTouser")
+  chatroom_chatroom_user2IDTouser chatroom[] @relation("chatroom_user2IDTouser")
+}
