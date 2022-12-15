@@ -17,7 +17,7 @@ export default function Login(){    const [regis,setRegis] = useState(false)
     const ErrorSignin = ()=>{
         if(errorsignin === 'wrongpass'){
            
-            console.log('ddddd')
+     
             timeout(3000)
             return <h3 className="text-danger mt-3">Wrong Username or Password!</h3>
         }
@@ -36,7 +36,9 @@ export default function Login(){    const [regis,setRegis] = useState(false)
             const password= e.target.password.value
     
         let au = await signIn("credentials", {username: username,password: password,redirect: false}) //Normally sign in
-        if(au.status === 401){
+        console.log(au)
+        if(au.error != null){
+            
             console.log("u fucked up!")
             setErrorsignin('wrongpass')
         }

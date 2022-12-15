@@ -25,4 +25,15 @@ model user {
   password                        String
   chatroom_chatroom_user1IdTouser chatroom[] @relation("chatroom_user1IdTouser")
   chatroom_chatroom_user2IDTouser chatroom[] @relation("chatroom_user2IDTouser")
+  friendThat                      friend[]   @relation("friendWith")
+  friendWith                      friend[]   @relation("friendThat")
+}
+
+model friend {
+  friendWith   user @relation("friendWith", fields: [friendWithId], references: [id])
+  friendWithId Int
+  friendThat   user @relation("friendThat", fields: [friendThatId], references: [id])
+  friendThatId Int
+
+  @@id([friendWithId, friendThatId])
 }

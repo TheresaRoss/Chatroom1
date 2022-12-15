@@ -1,0 +1,3 @@
+-friend With คือฝ่ง Add ไป คนรับคือ FriendThat  
+-ถ้ารับแล้ว ต้องเช็คว่าคนนี้ไม่เคยอยู่ในทั้ง FriendWith ของตัวเอง (ไม่เคย add ไป) และไม่อยู่ใน FriendThat ของเรา (เพื่อเราเคบรัยเขามาก่อน)
+-can't be friend with themself

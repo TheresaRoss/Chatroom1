@@ -1,10 +1,6 @@
 
 import { Prisma,PrismaClient } from "@prisma/client";
-import { redirect } from "next/dist/server/api-utils";
-import { Router,useRouter } from "next/router";
-import { userAgentFromString } from "next/server";
-import { use } from "react";
-import { signIn } from "next-auth/react"
+
 const  prisma = new PrismaClient()
 export default async function handler(req, res) {
     // Get data submitted in request's body.
@@ -15,7 +11,7 @@ export default async function handler(req, res) {
       // in the command line where next.js app is running.
       console.log('body: ', body)
       try{
-        const newUser= await prisma.User.create({
+        const newUser= await prisma.user.create({
             data:{
               name: body.name,
               username: body.username,

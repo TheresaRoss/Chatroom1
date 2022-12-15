@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Email from "next-auth/providers/email";
 import { Prisma,PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { useTransition } from "react";
+import { use, useTransition } from "react";
 const prisma = new PrismaClient()
 export default NextAuth({
     session: {
@@ -19,17 +19,17 @@ export default NextAuth({
             credentails: {},
             async authorize(credentails,req){
                 const {username,password} = credentails //accept 2 params as username and password
-                console.log('ddd')
+              
                 const user = await prisma.user.findUnique({
                     where: {username:username}
                 })
-              
+    
                 if(user){
-                    console.log(user)
+                
                     if(user.password === password){
-
+                       
                     
-                    return {name:username} //set Session name to username
+                    return {name:user.name,id:user.id,email:user.username} //set Session name to username
                     }
                     else{
                         return null
@@ -40,16 +40,25 @@ export default NextAuth({
                 //     throw new Error("test")
                 // }
                 console.log("User do not exist!")
-                return null 
+                return  null //throw error name
             }
         })
     ],
     callbacks: {
+        async jwt({ token, user, account, profile, isNewUser }) {
+            if(user){
+                token.uid = user.id
+                token.username = user.username
+            }
+            return token
+          },
         async session({session, token, user}) {
             session = {
                 ...session,
                 user: {
-                    id: 5, //set id here
+              
+                    id: token.uid, //set id here
+                    
                     ...session.user
                 }
             }
