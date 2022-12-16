@@ -1,0 +1,78 @@
+import { Prisma, PrismaClient } from "@prisma/client";
+import { useSession } from "next-auth/react"
+
+const prisma = new PrismaClient()
+
+export default async function handler(req, res) {
+
+    const body = parseInt(req.body)
+
+    if (req.method === "POST") {
+
+
+        let sendfriendinfo = [{
+            username: "",
+            name: ""
+        }]
+        sendfriendinfo.pop()
+        const friendlist = await prisma.friend.findMany({
+            where: { friendWithId: body }
+        }
+        ) //friendlist[0].friendThatId access your friends id
+
+        let thattfriend = ""
+        let nesw = {}
+
+        friendlist.forEach(async (x, i) => {
+            // console.log(friendlist[i]),
+
+            thattfriend = await prisma.user.findUnique({
+                where: { id: x.friendThatId }
+            }),
+                nesw = {
+                    username: thattfriend.username,
+                    name: thattfriend.name
+                },
+                console.log(nesw),
+                sendfriendinfo.push(nesw)
+
+        }
+        )
+
+        //do that same thing as above, but with friendthat case
+        const friendlist2 = await prisma.friend.findMany({
+            where: { friendThatId: body }
+        }
+        ) //friendlist[0].friendThatId access your friends id
+        let thattfriend2 = ""
+        let nesw2 = {}
+
+        friendlist2.forEach(async (x, i) => {
+            // console.log(friendlist[i]),
+
+            thattfriend2 = await prisma.user.findUnique({
+                where: { id: x.friendWithId }
+            }),
+                nesw2 = {
+                    username: thattfriend2.username,
+                    name: thattfriend2.name
+                },
+                console.log(nesw2),
+                sendfriendinfo.push(nesw2)
+        }
+        )
+
+
+
+
+        //waiting for friendlist to do their things, since it is async
+        //f(x)
+        var yoyo = setTimeout(() => {
+            res.status(200).json({
+                body: sendfriendinfo
+            })
+        }, 100)
+
+    }
+
+}
