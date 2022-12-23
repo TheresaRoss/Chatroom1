@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
+    console.log(req.body)
     const body = JSON.parse(req.body)
     if (req.method === "POST") {
         console.log(body)
@@ -78,7 +79,7 @@ export default async function handler(req, res) {
                     console.log('same data inserted')
 
                     res.status(500).json({
-                        body: "Already in your list"
+                        body: "Already in your friends list"
                     })
 
 

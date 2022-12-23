@@ -12,7 +12,7 @@ export default function(){
     var username,id
   
     if(session && status === "authenticated"){ //easiest way to acess value need to authenticated first
-        console.log(session)
+        //console.log(session)
  
         username = session.user.email
         id = session.user.id

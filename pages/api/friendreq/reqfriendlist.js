@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { useSession } from "next-auth/react"
 
 const prisma = new PrismaClient()
-
+//bug where sometime friend list sorted, sometime not
 export default async function handler(req, res) {
 
     const body = parseInt(req.body)

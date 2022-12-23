@@ -28,7 +28,7 @@ export const Layout =(props)=>{
               <li className="nav-item">
                 <a className="nav-link fs-5" id='test1' href="#">Friends</a>
               </li>
-              <Addfriend/>
+        
              
               
             </ul>

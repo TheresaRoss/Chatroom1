@@ -5,6 +5,8 @@ const  prisma = new PrismaClient()
 export default async function handler(req, res) {
     // Get data submitted in request's body.
     if(req.method === 'POST'){
+      console.log("dddddddddddddddddd")
+      console.log(req.body)
       const body = JSON.parse(req.body)
     
       // Optional logging to see the responses
