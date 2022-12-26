@@ -1,6 +1,6 @@
 import React from "react"
 
-
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 export const Layout =(props)=>{
   const Addfriend=()=>{
@@ -28,14 +28,18 @@ export const Layout =(props)=>{
               <li className="nav-item">
                 <a className="nav-link fs-5" id='test1' href="#">Friends</a>
               </li>
+            
         
              
               
             </ul>
+            <div className="nav-item" id='test1'>
+              <button className="btn btn-primary me-3" onClick={()=>{signOut({callbackUrl: '/login' })}}>Log Out</button>
+            </div>
             <div class="ratio ratio-1x1 rounded-circle overflow-hidden" id="pic1">
                 <img src="/profilenoob.png"  ></img>
             </div>
-           
+           {/* //141cb95f73f0ac633e1b06ed6443a63f20d6c68fa283a33b3a1cadcf0ad763af   first token*/}
             <span className="fs-4 navbar-text fw-normal ms-3 " id='test1'>
              {props.yoyo}
             </span>

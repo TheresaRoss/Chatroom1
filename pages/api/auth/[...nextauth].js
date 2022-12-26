@@ -11,7 +11,9 @@ export default NextAuth({
     },
     pages: {
         signIn: "/login",
+        signOut: "/login",
         error: "/login"
+
     },
     providers:[
         CredentialsProvider({

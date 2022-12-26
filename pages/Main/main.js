@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { Layout } from "../../component/layout"
 import { LeftChat } from "../../component/left_bar"
+import { Rightbar } from "../../component/right_bar"
 
 
 
@@ -33,6 +34,7 @@ export default function(){
     return(<>
         <Layout yoyo={username}/>
         <LeftChat id={id}/>
+        <Rightbar/>
 
     
        <UserInfo/>

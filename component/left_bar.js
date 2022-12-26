@@ -70,7 +70,9 @@ export const LeftChat = (props) => {
             </table>
         )
     }
+    //cc48e04b1828d7d9d967a05c07915a3ca88bf2277257e47120d94127b710ea4d
 
+    
     const ShowErrorAdd = () =>{
         
         if(errormes === 'alreadyF'){
@@ -116,7 +118,7 @@ export const LeftChat = (props) => {
                 else if(res.body === "Can't add yourself"){
                     setErrormes('addS')
                 }
-                else if(res.body === "Cant' find user"){
+                else if(res.body === "Can't find user"){
                     setErrormes('cannotf')
                 }
                 else{

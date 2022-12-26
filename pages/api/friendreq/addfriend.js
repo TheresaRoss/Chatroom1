@@ -1,6 +1,8 @@
 
 import { Prisma, PrismaClient } from "@prisma/client";
-import { useSession } from "next-auth/react"
+import { getCsrfToken } from "next-auth/react"
+import { getToken } from "next-auth/jwt"
+import { getSession } from "next-auth/react"
 
 const prisma = new PrismaClient()
 
@@ -8,10 +10,21 @@ export default async function handler(req, res) {
     console.log(req.body)
     const body = JSON.parse(req.body)
     if (req.method === "POST") {
+        const session = await getSession({ req })
+        if(session){}
+        else{
+            res.status(500).json({
+                body: "GU ASK REAL!"
+            })
+            return
+        }
         console.log(body)
-
+        console.log(session)
+        // console.log('ggggggggggggggggggggggggggggggg')
+        // const csrfToken = await getCsrfToken({req})
+        // console.log(csrfToken)
         let addUser;
-
+        //find who u gonna add
         addUser = await prisma.user.findUnique({
             where: { username: body.fusername }
 
