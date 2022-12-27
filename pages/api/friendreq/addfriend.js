@@ -101,6 +101,14 @@ export default async function handler(req, res) {
             throw e
         }
 
+        //create new chatroom too
+        const newUser = await prisma.chatroom.create({
+            data: {
+                user1Id: body.id,
+                user2ID: addUser.id
+            }
+        })
+
         res.status(200).json({
             body: "DONE"
         })
