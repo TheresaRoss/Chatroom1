@@ -19,7 +19,7 @@ export const Rightbar = (props) => {
 
         socket.on("newIncomingMessage", (msg) => {//Server call newIncoming Message
             console.log(msg) //the message that just sent
-            console.log('dddddddddddddddddddd') //accept new message??
+            //accept new message??
 
 
         });

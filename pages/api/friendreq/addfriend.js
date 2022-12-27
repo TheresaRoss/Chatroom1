@@ -7,17 +7,19 @@ import { getSession } from "next-auth/react"
 const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
-    console.log(req.body)
+   
     const body = JSON.parse(req.body)
+    console.log('ddd')
     if (req.method === "POST") {
         const session = await getSession({ req })
-        if(session){}
+        if(session){ }
         else{
             res.status(500).json({
                 body: "GU ASK REAL!"
             })
             return
         }
+      
         console.log(body)
         console.log(session)
         // console.log('ggggggggggggggggggggggggggggggg')

@@ -22,7 +22,7 @@ export const LeftChat = (props) => {
             }).then(async (response) => {
 
                 const res = await response.json()
-                console.log(res.body)
+                //console.log(res.body)
                 setFriendlist(res.body)
             })
         }
@@ -42,7 +42,7 @@ export const LeftChat = (props) => {
     }
 
     const FriendList = () => {
-        console.log(friendlist)
+        //console.log(friendlist)
         const ff = friendlist.map((info, index) =>
             <tr className="table-dark">
                 <th scope="row">{index + 1}</th>
