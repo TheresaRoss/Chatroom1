@@ -11,6 +11,7 @@ export default function SockerHandler(req,res) {
       res.socket.server.io = io;
     
       const onConnection = (socket) => {
+        socket.join("1")
         messageHandler(io, socket); //handle message sent
       };
     
