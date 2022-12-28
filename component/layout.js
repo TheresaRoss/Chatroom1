@@ -3,15 +3,16 @@ import React from "react"
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 export const Layout =(props)=>{
-  const Addfriend=()=>{
-    return <li className="nav-item mt-1 ms-5" id = "test1" >
-      <form className="d-inline-flex center-block" id = 'test1'>
+ 
+  // const Addfriend=()=>{
+  //   return <li className="nav-item mt-1 ms-5" id = "test1" >
+  //     <form className="d-inline-flex center-block" id = 'test1'>
         
-        <input type="text" className="form-control" id="friendid" name="friendid"></input>
+  //       <input type="text" className="form-control" id="friendid" name="friendid"></input>
      
-      </form>
-      </li>
-  }
+  //     </form>
+  //     </li>
+  // }
     return (
         <><nav className="navbar navbar-expand-lg "  >
         <div className="container-fluid"id='test1' >
@@ -28,7 +29,6 @@ export const Layout =(props)=>{
               <li className="nav-item">
                 <a className="nav-link fs-5" id='test1' href="#">Friends</a>
               </li>
-            
         
              
               

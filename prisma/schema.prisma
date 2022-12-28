@@ -8,14 +8,23 @@ datasource db {
 }
 
 model chatroom {
-  id                          Int  @id @default(autoincrement())
+  id                          Int       @id @default(autoincrement())
   user1Id                     Int
   user2ID                     Int
-  user_chatroom_user1IdTouser user @relation("chatroom_user1IdTouser", fields: [user1Id], references: [id], map: "Chatroom_user1Id_fkey")
-  user_chatroom_user2IDTouser user @relation("chatroom_user2IDTouser", fields: [user2ID], references: [id], map: "Chatroom_user2ID_fkey")
+  user_chatroom_user1IdTouser user      @relation("chatroom_user1IdTouser", fields: [user1Id], references: [id], map: "Chatroom_user1Id_fkey")
+  user_chatroom_user2IDTouser user      @relation("chatroom_user2IDTouser", fields: [user2ID], references: [id], map: "Chatroom_user2ID_fkey")
+  message                     message[]
 
   @@index([user1Id], map: "Chatroom_user1Id_fkey")
   @@index([user2ID], map: "Chatroom_user2ID_fkey")
+}
+
+model message {
+  messageId  Int      @id @default(autoincrement())
+  messsage   chatroom @relation(fields: [chatroomId], references: [id])
+  chatroomId Int
+  senderId   Int
+  details String
 }
 
 model user {

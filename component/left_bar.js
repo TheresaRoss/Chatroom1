@@ -3,10 +3,10 @@ import Styles from "../component/leftbar.module.css"
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react"
 export const LeftChat = (props) => {
-   
+
     const [friendlist, setFriendlist] = useState([])
-    const [errormes,setErrormes] = useState('')
-  
+    const [errormes, setErrormes] = useState('')
+
 
     useEffect(() => { //Setting default friend list
 
@@ -48,10 +48,14 @@ export const LeftChat = (props) => {
                 <th scope="row">{index + 1}</th>
                 <td>{info.username}</td>
                 <td>{info.name}</td>
+                <td className="d-flex justify-content-center"><button className="btn btn-dark" onClick={() => { props.chatpartner(info.name) }}>Chat</button></td>
+                {/* send userid back to main */}
             </tr>
         )
         return ff
     }
+
+
 
     const FriendTable = () => {
         return (
@@ -61,6 +65,7 @@ export const LeftChat = (props) => {
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Name</th>
+                        <th className="d-flex justify-content-center" scope="col">Hahaha</th>
 
                     </tr>
                 </thead>
@@ -72,19 +77,19 @@ export const LeftChat = (props) => {
     }
     //cc48e04b1828d7d9d967a05c07915a3ca88bf2277257e47120d94127b710ea4d
 
-    
-    const ShowErrorAdd = () =>{
-        
-        if(errormes === 'alreadyF'){
+
+    const ShowErrorAdd = () => {
+
+        if (errormes === 'alreadyF') {
             return <div className="">Already in your friends list!</div>
         }
-        else if(errormes === 'addS'){
-             return <div className="ml-5">Cannot add yourself!</div>
+        else if (errormes === 'addS') {
+            return <div className="ml-5">Cannot add yourself!</div>
         }
-        else if(errormes === 'cannotf'){
-             return <div className="">Cannot find desired user!</div>
+        else if (errormes === 'cannotf') {
+            return <div className="">Cannot find desired user!</div>
         }
-        else{
+        else {
             return <div></div>
         }
 
@@ -112,16 +117,16 @@ export const LeftChat = (props) => {
             //if error don't do below
             if (response.status === 500) { //if error, don't do and return
                 console.log(res.body)
-                if(res.body === "Already in your friends list"){
+                if (res.body === "Already in your friends list") {
                     setErrormes('alreadyF')
                 }
-                else if(res.body === "Can't add yourself"){
+                else if (res.body === "Can't add yourself") {
                     setErrormes('addS')
                 }
-                else if(res.body === "Can't find user"){
+                else if (res.body === "Can't find user") {
                     setErrormes('cannotf')
                 }
-                else{
+                else {
 
                 }
                 return
@@ -135,7 +140,7 @@ export const LeftChat = (props) => {
         <div className={Styles.mainlay}>
             {/* <button className="btn btn-primary" onClick={ReqFriendslist}>COCK</button> */}
             <h2 className="bg-success p-1 pb-2 m-0 text-center mg"> Add Friends</h2>
-            <ShowErrorAdd/>
+            <ShowErrorAdd />
             <div className="bg-white text-center "><form className="form-inline" onSubmit={SendFriends}>
                 <div className="input-group">
                     <input type="email" className="form-control" id="Fusername" name="Fusername" placeholder="Your Friends Username here!" />

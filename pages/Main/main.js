@@ -10,13 +10,26 @@ import { Rightbar } from "../../component/right_bar"
 
 export default function(){
     const  {data:session, status} = useSession()
-    var username,id
+
+    const [friendid,setFriendid] = useState('')
+    var username,id,name
+
+    const handleTest = (data)=>{
+        setTest1(data)
+        console.log(data) //accept data from layout, and can use it in main compo
+    }
+
+    const setFriendtoChat = (data) =>{
+        setFriendid(data)
+        console.log(data + ' ddddddddddddddddddddd')
+    }
   
     if(session && status === "authenticated"){ //easiest way to acess value need to authenticated first
-        //console.log(session)
+        console.log(session)
  
         username = session.user.email
         id = session.user.id
+        name= session.user.name
     }
     const UserInfo =()=>{
     if(session){ //must pass if session everytime?
@@ -32,9 +45,9 @@ export default function(){
     }
     }
     return(<>
-        <Layout yoyo={username}/>
-        <LeftChat id={id}/>
-        <Rightbar/>
+        <Layout yoyo={username}  />
+        <LeftChat id={id} chatpartner={setFriendtoChat}/>
+        <Rightbar yourpar={name}/>
 
     
        <UserInfo/>

@@ -17,28 +17,38 @@ export const Rightbar = (props) => {
         await fetch("/api/socket");
 
 
-        socket.on("new", (msg) => { 
+        socket.on("new", (msg) => {
 
             console.log(msg + '  dddddddddddddddddddddd')
             allmes.push(msg) //push every new msg to array
             //console.log(allmes)
             //setMessages(allmes)
-  
+
             setMessages((currentMsg) => [
                 ...currentMsg,
                 msg,
             ]); //update message array
             console.log(messages)
-          
-          
+
+
         })
     };
 
 
-    const AllMsg = () => {
+    const AllMsg = () => { //custom chat box
         const aa = messages.map((msg, index) =>
-            <div className="bg-primary text-dark">{msg}</div>)
- 
+            <div className="container bg-transparent  p-0">
+                <div className="row  bg-transparent mb-1 mt-2">
+                    <div className="d-flex justify-content-center bg-transparent align-items-center text-center p-0 m-0 col-1 ">
+                        <img className="rounded-circle" src="/profilenoob.png" width='25' height='25' />
+                    </div>
+                    <div className="bg-info border border-dark col-10 rounded-pill   ps-2">
+                        <p className="bg-info text-dark  d-inline"> {props.yourpar}</p> {/*sender na*/}
+                        <p className="bg-info text-dark m-3 d-inline">{msg}</p>
+                    </div>
+                </div>
+            </div>)
+
         return aa
     }
 
@@ -56,8 +66,9 @@ export const Rightbar = (props) => {
     return (
         <div className={Styles.mainlay}>
             <div className={Styles.chatbox}>
-                <AllMsg/>
+                <AllMsg />
             </div>
+
             <div className={Styles.sendbox}>
                 <form className="form-inline" onSubmit={sendMessage}>
                     <div className="input-group">
