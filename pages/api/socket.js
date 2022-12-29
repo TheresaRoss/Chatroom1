@@ -14,7 +14,13 @@ export default function SockerHandler(req,res) {
         socket.join("1")
         messageHandler(io, socket); //handle message sent
       };
-    
+      
+      const onJoin = (id) =>{
+        io.join(id)
+        console.log(id+' dsdsss')
+      }
+
+      io.on("join",onJoin)
       // Define actions inside
       io.on("connection", onConnection); // when connected, do onConnection from user
     

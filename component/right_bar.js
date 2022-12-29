@@ -11,26 +11,33 @@ export const Rightbar = (props) => {
     const socket = io();
 
     useEffect(() => {
-        socketInitializer();
+        
     }, []);
+
+    
+    useEffect(() => {
+        reqChat();
+        //socketInitializer();
+    }, [props.chatroomid]); //will call reqChat everytime props changed
 
     const socketInitializer = async () => {
         // We just call it because we don't need anything else out of it
-        await fetch("/api/socket");
-
-
+        await fetch("/api/socket",{
+            method:"POST",
+            body:props.chatroomid
+        });
+   
+      
+        
         socket.on("new", (msg) => {
 
             console.log(msg + '  dddddddddddddddddddddd')
-            allmes.push(msg) //push every new msg to array
+            //push every new msg to array
             //console.log(allmes)
             //setMessages(allmes)
 
-            setMessages((currentMsg) => [
-                ...currentMsg,
-                msg,
-            ]); //update message array
-            console.log(messages)
+            console.log('HIIIIIIIIIIIII')
+  
 
 
         })
@@ -59,7 +66,7 @@ export const Rightbar = (props) => {
 
     const sendMessage = async (e) => {
         e.preventDefault()
-        // socket.emit("createdMessage", message);//send message to api
+        //socket.emit("createdMessage", props.chatroomid);//send message to api
         // //  setMessages((currentMsg) => [
         // //      ...currentMsg,
         // //      e.target.box1.value,
@@ -84,6 +91,7 @@ export const Rightbar = (props) => {
     };
 
     const reqChat = async () => {
+        
         const yourchatroom = {
 
             chatroomid: props.chatroomid
@@ -99,7 +107,8 @@ export const Rightbar = (props) => {
     }
 
     const Show = () => {
-        if (props.chatroomid) {
+        if (props.chatroomid) {    
+            
             return (
                 <>
                     <div className={Styles.chatbox}>
