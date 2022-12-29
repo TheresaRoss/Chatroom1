@@ -48,8 +48,22 @@ export const LeftChat = (props) => {
                 <th scope="row">{index + 1}</th>
                 <td>{info.username}</td>
                 <td>{info.name}</td>
-                <td className="d-flex justify-content-center"><button className="btn btn-dark" onClick={() => { props.chatpartner(info.name) }}>Chat</button></td>
-                {/* send userid back to main */}
+                <td className="d-flex justify-content-center"><button className="btn btn-dark" onClick={async() => { 
+                    props.chatpartner(info.username) 
+                    const chatroomp = {   //request chatroom id only once
+                        senderId: props.id,
+                        anotherone: info.username
+                    }
+                    const res = await fetch("/api/chat/reqchatroom",{
+                        method:"POST",
+                        body: JSON.stringify(chatroomp)
+                    })
+                    const response = await res.json()
+                 
+
+                    props.chatroomna(response.body)
+                }}>Chat</button></td>
+                {/* send username back to main */}
             </tr>
         )
         return ff

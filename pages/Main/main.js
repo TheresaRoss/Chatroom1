@@ -12,6 +12,8 @@ export default function(){
     const  {data:session, status} = useSession()
 
     const [friendid,setFriendid] = useState('')
+    const [chatroomid, setChatroomid] = useState()
+
     var username,id,name
 
     const handleTest = (data)=>{
@@ -21,8 +23,14 @@ export default function(){
 
     const setFriendtoChat = (data) =>{
         setFriendid(data)
-        console.log(data + ' ddddddddddddddddddddd')
+        // console.log(data + ' ddddddddddddddddddddd')
     }
+
+    const setChatroomidd = (data) =>{
+        setChatroomid(data)
+        console.log('chatroom '+ data)
+        }
+    
   
     if(session && status === "authenticated"){ //easiest way to acess value need to authenticated first
         console.log(session)
@@ -46,8 +54,8 @@ export default function(){
     }
     return(<>
         <Layout yoyo={username}  />
-        <LeftChat id={id} chatpartner={setFriendtoChat}/>
-        <Rightbar yourpar={name}/>
+        <LeftChat id={id} chatpartner={setFriendtoChat} chatroomna={setChatroomidd}/>
+        <Rightbar yourpar={friendid} id={id} chatroomid={chatroomid}/>
 
     
        <UserInfo/>
