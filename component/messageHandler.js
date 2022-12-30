@@ -9,7 +9,7 @@ export default (io, socket) => {
       
       socket.to(newmsg).emit("new","HI") //send to room newmsg
    
-      console.table( socket.rooms)
+      console.log(socket.rooms)
       //Bug?, send to everyone including sender
     };
    

@@ -8,34 +8,39 @@ export const Rightbar = (props) => {
 
 
     let allmes = []
-    const socket = io();
+
+const socket = io();
 
     useEffect(() => {
-       
-        // const bb = setInterval(()=>{
-        //    reqChat()
+        //socketInitializer();                 failed
+        console.log("done once")
+        // const bb = setInterval(()=>{        not a good idea, 
+        //    reqChat()                        useeffect reset form and prevent continue writting
         //    console.log('bbbbbbbbbbbbbbbb')
         // },2000)
         // return ()=>{
         //     clearInterval(bb)
         // }
-    });
+    },[]);
 
     
     useEffect(() => {
         reqChat();
         console.log('change')
-        if(props.chatroomid){socket.emit('leave',props.chatroomid)}
-        socketInitializer();
+        // if(props.chatroomid){socket.emit('leave',props.chatroomid)}
+        // if(props.chatroomid){socket.emit('join',props.chatroomid)}
+        // if(props.chatroomid){socket.emit('createdMessage',props.chatroomid)}
     }, [props.chatroomid]); //will call reqChat everytime props changed
 
     const socketInitializer = async () => {
         // We just call it because we don't need anything else out of it
-       await fetch("/api/socket");
+       console.log('Calleddddddddddd')
+        await fetch("/api/socket");
+        
      
-        if(props.chatroomid){socket.emit('join',props.chatroomid)}
+        
    
-      
+     
         
         socket.on("new", (msg) => {
 
@@ -73,11 +78,8 @@ export const Rightbar = (props) => {
 
     const sendMessage = async (e) => {
         e.preventDefault()
-        socket.emit("createdMessage", props.chatroomid);//send message to api
-        // //  setMessages((currentMsg) => [
-        // //      ...currentMsg,
-        // //      e.target.box1.value,
-        // //  ]); //update message array
+        //socket.emit("createdMessage", props.chatroomid);//send message to api
+        
          setData(""); //revalue message
    
         const yourmessage = {
