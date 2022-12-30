@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             })
             return
         }
-        console.log(body.chatroomid + ' ddddddddddddddd')
+        //console.log(body.chatroomid + ' ddddddddddddddd')
 
         //find every message where chatroomid is the right one
         const allmes = await prisma.message.findMany({

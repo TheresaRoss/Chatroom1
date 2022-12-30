@@ -1,9 +1,9 @@
 import React, { useDebugValue } from "react";
 import io from "socket.io-client";
 import Styles from "../component/rightbar.module.css"
-import { useState, useEffect } from "react";
+import { useState, useEffect,useInterval } from "react";
 export const Rightbar = (props) => {
-    const [message, setMessage] = useState("");
+    const [data, setData] = useState("");
     const [messages, setMessages] = useState([]);
 
 
@@ -11,30 +11,37 @@ export const Rightbar = (props) => {
     const socket = io();
 
     useEffect(() => {
-        
-    }, []);
+       
+        // const bb = setInterval(()=>{
+        //    reqChat()
+        //    console.log('bbbbbbbbbbbbbbbb')
+        // },2000)
+        // return ()=>{
+        //     clearInterval(bb)
+        // }
+    });
 
     
     useEffect(() => {
         reqChat();
-        //socketInitializer();
+        console.log('change')
+        if(props.chatroomid){socket.emit('leave',props.chatroomid)}
+        socketInitializer();
     }, [props.chatroomid]); //will call reqChat everytime props changed
 
     const socketInitializer = async () => {
         // We just call it because we don't need anything else out of it
-        await fetch("/api/socket",{
-            method:"POST",
-            body:props.chatroomid
-        });
+       await fetch("/api/socket");
+     
+        if(props.chatroomid){socket.emit('join',props.chatroomid)}
    
       
         
         socket.on("new", (msg) => {
 
             console.log(msg + '  dddddddddddddddddddddd')
-            //push every new msg to array
-            //console.log(allmes)
-            //setMessages(allmes)
+            //fail to use can't find bugs
+            reqChat()
 
             console.log('HIIIIIIIIIIIII')
   
@@ -43,7 +50,7 @@ export const Rightbar = (props) => {
         })
     };
 
-
+   
 
     const AllMsg = () => { //custom chat box
         const aa = messages.map((msg, index) =>
@@ -66,26 +73,26 @@ export const Rightbar = (props) => {
 
     const sendMessage = async (e) => {
         e.preventDefault()
-        //socket.emit("createdMessage", props.chatroomid);//send message to api
+        socket.emit("createdMessage", props.chatroomid);//send message to api
         // //  setMessages((currentMsg) => [
         // //      ...currentMsg,
         // //      e.target.box1.value,
         // //  ]); //update message array
-        // setMessage(""); //revalue message
-
+         setData(""); //revalue message
+   
         const yourmessage = {
             partnerid: props.yourpar, //user who you sent message to
             details: e.target.box1.value,
             senderId: props.id,
             chatroomid: props.chatroomid  //got it from leftchat
         }
-        setMessage("") //can  clear input with this method too
+        
         const response = await fetch("/api/chat/sendchat", {
             method: "POST",
             body: JSON.stringify(yourmessage)
         })
         const res = await response.json()
-        console.log(res, 'fffffffffffffffffffff')
+        //console.log(res, 'fffffffffffffffffffff')
 
         reqChat()
     };
@@ -101,7 +108,7 @@ export const Rightbar = (props) => {
             body: JSON.stringify(yourchatroom)
         })
         const res = await response.json()
-        console.log(res.body, 'ddddddddddddddddddddd')
+        //console.log(res.body, 'ddddddddddddddddddddd')
         setMessages(res.body)
 
     }
@@ -123,8 +130,13 @@ export const Rightbar = (props) => {
                                     placeholder="New message..."
                                     id="box1"
                                     name="box1"
-                                     //link message to value in input too
-                                    className="form-control"
+                                    // onChange={(e)=>{
+                                    //     setData(e.target.value)
+                                    //     console.log('gg')
+                                    // }}
+                                   //value={data}//link message to value in input too
+
+                                   className="form-control"
                                   
                                 />
                                 <button className="btn btn-primary">Send</button>
@@ -141,7 +153,9 @@ export const Rightbar = (props) => {
     }
 
 return (
+   
     <div className={Styles.mainlay}>
+   
        <Show/>
     </div>
 )
